@@ -1,0 +1,14 @@
+WPP2022_Population1JanuaryBySingleAgeSex_Medium_2022-2100.*
+WPP2022_Population1JanuaryBySingleAgeSex_Medium_1950-2021.*
+WPP2022_Life_Table_Complete_Medium_Male_2022-2100.*
+WPP2022_Life_Table_Complete_Medium_Male_1950-2021.*
+WPP2022_Life_Table_Complete_Medium_Female_2022-2100.*
+WPP2022_Life_Table_Complete_Medium_Female_1950-2021.*
+WPP2022_Fertility_by_Age1.*
+WPP2022_Demographic_Indicators_Medium.*
+.Rproj.user
+*.RData
+*.gif
+*.pdf
+*.png
+*.xlsx
