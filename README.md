@@ -1,73 +1,73 @@
-# The Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure
+# Projecting the Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure
 
-## Purpose of the Repository
+## Purpose of this Repository
+The repository **CovPop** was created to enable readers to replicate the findings reported in:
 
-The repository **CovPop** was created to provide supplementary figures for our manuscript:
+*Projecting the Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure*,
 
-*The Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure*
-
-and enable readers to replicate our findings.
+hereafter, *our manuscript*.
 
 ## Repository Structure
-The repository **CovPop** contains two main folders:
+The repository **CovPop** contains two main folders, *Journal* and *SocArXiv*.
 
-- **Supplementary Figures**
+### *1. Journal*
+The main folder **Journal** contains all data and `R` scripts necessary to replicate the information reported in the journal version of our manuscript. This includes the information reported in the Supplementary Information and the point-by-point responses to the peer reviewers&apos; comments. The data and analysis files are respectively stored in the sub-folders *data* and *scripts*.
 
-- **Replication**
+For our main analysis, we use data from the [United Nations World Population Prospects](https://population.un.org/wpp/) (UNWPP), version 2022, provided by the United Nations Department of Economic and Social Affairs (Ref. 1).
 
-## Main Folder 'Supplementary Figures'
-The main folder **Supplementary Figures** contains supplementary figures that are not reported in our manuscript. These are stored in two sub-folders:
+For our supplementary analysis, we also use data from the [Human Mortality Database](https://mortality.org), version 03 April 2023 (Ref. 2), and the [Human Fertility Database](https://humanfertility.org), deposited on 28 March 2023 (Ref. 3), as well as data published in three National Vital Statistics Reports (Ref. 4&ndash;6).
 
-- **absolute**
+The UNWPP data used for our analysis are distributed under a [Creative Commons license CC BY 3.0 IGO](https://creativecommons.org/licenses/by/3.0/igo/). The HMD and HFD data used for our analysis are distrubuted under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Please note the version or deposited dates of the data used for our analysis, as indicated above.
 
-	contains four .gif files displaying the results shown in Figures 2a and 3a in moving image form: "Figure-2-absolute.gif"; "Figure-3-Mortality-absolute.gif"; "Figure-3-Fertility-absolute.gif"; "Figure-3-Migration-absolute.gif"	
+#### a. *data*
+Data taken from UNWPP, HMD, and HFD are stored as .zip files in the sub-folder **data**. These .zip files  do **not** need to be unzipped before running our analysis files, as the code unzips these files automatically. Data from the three National Vital Statistics Reports are hard coded in our analysis files. The sub-folder **data** also stores data files created during  analysis.
 
-- **relative**
-
-	contains four .gif files displaying the results shown in Figures 2b and 3b in moving image form: "Figure-2-relative.gif"; "Figure-3-Mortality-relative.gif"; "Figure-3-Fertility-relative.gif"; "Figure-3-Migration-relative.gif".
-
-## Main Folder 'Replication'
-The main folder **Replication** contains the data and `R` scripts necessary to replicate our findings. These are stored in two sub-folders:
-
-- **data**
-
-	contains all data files necessary to replicate our findings
-
-- **scripts** 
-
-	contains all `R` scripts necessary to replicate our findings
-
-The main folder **Replication** also provides empty sub-folders needed to seamlessly execute our `R` scripts, e.g., to save plots:
-
-- **plots**
-
-	stores all plots created by our `R` scripts (see sub-folder **scripts**) and shown in our manuscript
-
-### Sub-folder 'data'
-We use data provided by the 2022 **United Nations World Population Prospects** (UNWPP). The raw data used for our analysis can be downloaded manually from: https://population.un.org/wpp/.
-
-### Sub-folder 'scripts'
-The sub-folder **scripts** contains the `R` scripts necessary to replicate all findings reported in our manuscript, as well as the supplementary figures described above:
-
-- **00-main.R**
-
-	installs all `R` packages necessary to replicate our findings. This `R` script automatically executes the files `01-preparation.R`, `02-projections.R`, and `99-functions.R`, which are described in more detail below.
-
-- **01-preparation.R**
-
-	loads the necessary data provided by UNWPP, prepares them for further analysis, and saves them in a combined data file "Proj.RData". This `R` script assumes that all data were manually downloaded and stored as .csv or .zip files in the sub-folder **data** following our naming conventions.
-
-- **02-projections.R**
-
-	replicates all findings reported in the section **Results** of our manuscript and creates and saves all (supplementary) figures
+#### b. scripts
+The sub-folder **scripts** contains the `R` scripts necessary to replicate all findings reported in our main manuscript, Supplementary Information, and/or the point-by-point responses to the peer reviewers&apos; comments:
 
 - **99-functions.R**
+Creates custom functions used to calculate survivorship ratios, conduct stochastic or deterministic population projections, and build some of our plots.
 
-	creates the functions used to calculate survivorship ratios, conduct the projections, and create some of our plots. This `R` script must therefore be executed before running the `R` scripts `01-preparation.R` and `02-projections.R`.
+- **01-preparation.R**
+Loads UNWPP data, prepares them for further analysis, and saves them in a combined data file *projection-input.RData*.
 
-## How to Use the Repository
+- **02-projections.R**
+Carries out all counterfactual population projections, derives summary indicators from the counterfactual population projections, and saves these summary indicators in a combined data file *projection-output.RData*.
+
+- **03-out.R**, **98-compare-sources-rr1.R**, **98-compare-sources-rr2.R**
+These three files create all plots and tables reported in our main manuscript, Supplementary Information, and/or or the point-by-point responses to the peer reviewers&apos; comments. All output is stored in the automatically generated folder **out**.
+
+- **00-main.R**
+Installs all `R` packages necessary to replicate our findings, loads user input (such as the selected color palettes and random seeds), and automatically executes all analysis files listed above.
+
+- **03-out-pub.R**, **99-functions-pub.R**
+These two stand-alone files create all plots reported in the journal version of our article, following the journal&apos;s formatting requirements. The file `03-out-pub.R` installs all `R` packages necessary for plotting and automatically executes the file `99-functions-pub.R`.
+
+### 2. *SocArXiv*
+The main folder **SocArXiv** contains all materials associated with version 1 of our manuscript preprint, as posted on *SocArXiv* (Ref. 7). This main folder is just for reference, as the analytical strategy and code have changed following the peer review of our manuscript.
+
+## How to Use this Repository
 In order to run the `R` code provided in the repository **CovPop**, please proceed in the following order:
 
-1. Open the file `CovPop.Rproj` in `RStudio`.  
-2. Within `RStudio`, click on `File`/`Open File...` and select the file `00-main.R` located in the **scripts** folder.
-3. Run the code.
+1. Download the repository from `github`. If applicable, unzip the downloaded folder and place it in a location convenient for you. 
+2. Double click on the file `CovPop.Rproj` in the **Journal** folder. This should open `RStudio` on your machine.  
+3. Within `RStudio`, click on `File`/`Open File...` and select the analysis file `00-main.R` located in the **scripts** sub-folder.
+4. You should now be able to run our code without adjusting any directories.
+
+## License
+This work is licensed under a
+[Creative Commons Attribution 4.0 International License][cc-by].
+
+[![CC BY 4.0][cc-by-image]][cc-by]
+
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+[cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
+
+## References
+1. United Nations, Department of Economic and Social Affairs, Population Division, World Population Prospects. https://population.un.org/wpp/. Version 2022.
+2. Max Planck Institute for Demographic Research (Germany), University of California, Berkeley (USA), French Institute for Demographic Studies (France), Human Mortality Database (HMD). https://mortality.org. Version 03 April 2023.
+3. Max Planck Institute for Demographic Research (Germany) and Vienna Institute of Demography (Austria), Human Fertility Database (HFD). https://humanfertility.org. Deposited 28 March 2023.
+4. M.J.K. Osterman, B.E. Hamilton, J.A. Martin, A.K. Driscoll, C.P. Valenzuela, Births: Final Data for 2021. *National Vital Statistics Reports* **72**(1) (2023). 
+5. E. Arias, J. Xu, United States Life Tables, 2019. *National Vital Statistics Reports* **70**(19) (2022).
+6. E. Arias, J. Xu, United States Life Tables, 2020. *National Vital Statistics Reports* **71**(1) (2022).
+7. A.M. Tilstra, A. Polizzi, S. Wagner, E.T. Akimova, The Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure. *SocArXiv*. https://doi.org/10.31235/osf.io/rqn9j. Version 1. Submitted 28 March 2023.
