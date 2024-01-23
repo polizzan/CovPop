@@ -1,3 +1,7 @@
+[![doi](https://img.shields.io/badge/DOI-10.17605/OSF.IO/TE592-blue)][doi]
+
+[doi]: https://doi.org/10.17605/OSF.IO/TE592
+
 # Projecting the Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure
 
 ## Purpose of this Repository
