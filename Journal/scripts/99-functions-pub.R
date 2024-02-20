@@ -18,7 +18,8 @@ pyramid <- function(mid,
                     percent = FALSE, 
                     show.x = TRUE,
                     show.y = TRUE,
-                    font = "serif"){  
+                    font = "serif",
+                    PANEL = ""){  
   
   pal_f <- RColorBrewer::brewer.pal(10, "PRGn")[c(3, 1)]
   pal_m <- RColorBrewer::brewer.pal(10, "PRGn")[c(8, 10)]
@@ -169,7 +170,7 @@ pyramid <- function(mid,
                                       linewidth = 0.25),
           axis.ticks.length = unit(1, "pt"),
           text = element_text(family = font),
-          plot.title = element_text(size = 7, face = "bold", hjust = 0.5),
+          plot.title = element_text(size = 7, hjust = 0.5),
           plot.margin = margin(2, 2, 2, 2, unit = "pt"))
   
   g=ggplot_build(plot)
@@ -204,5 +205,11 @@ pyramid <- function(mid,
   
   ## transform back into ggplot
   plot <- ggpubr::as_ggplot(ggplot_gtable(g))
+  
+  ## add panel label
+  plot <-  
+    plot +
+    annotate("text", x = 0.05, y = 0.975, label = PANEL, 
+             size = 7 * 0.36, hjust = 0, family = font, fontface = 2) 
   
 }

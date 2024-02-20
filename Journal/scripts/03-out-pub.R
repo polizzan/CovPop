@@ -9,7 +9,7 @@
 #########
 
 ## packages to be installed from cran
-from.cran <- c("cowplot", "geofacet", "ggpubr", "here",
+from.cran <- c("cowplot", "geofacet", "ggpubr", "gridExtra", "here",
                "plyr", "RColorBrewer", "tidyverse")
 
 ## check if installed, else install
@@ -100,6 +100,7 @@ for(i in estimates_years[, 3]){
               linetype = "solid", linewidth = 0.1, show.legend = FALSE) +
     xlab("") +
     ylab("Change in Population Size (in Thousands)") +
+    ggtitle("Panel A") +
     scale_fill_manual("", 
                       values = c("1" = pal_m[1], "0" = pal_f[1]),
                       labels = c("Male", "Female")) +
@@ -111,7 +112,8 @@ for(i in estimates_years[, 3]){
     scale_y_continuous(limits = c(agegrp_sex_label_min_abs, agegrp_sex_label_max_abs),
                        breaks = seq(agegrp_sex_label_min_abs, agegrp_sex_label_max_abs, 50)) +
     theme_bw() +
-    theme(panel.border = element_rect(linewidth = 0.25),
+    theme(plot.title = element_text(size = 7, hjust = 0, vjust = -4, face = "bold", margin = margin(0, 0, 0, 0)),
+          panel.border = element_rect(linewidth = 0.25),
           panel.grid = element_blank(),
           panel.spacing = unit(0.25, "cm"),
           strip.background = element_blank(),
@@ -145,6 +147,7 @@ for(i in estimates_years[, 3]){
               linetype = "solid", linewidth = 0.1, show.legend = FALSE) +
     xlab("") +
     ylab("Change in Population Size (%)") +
+    ggtitle("Panel B") +
     scale_fill_manual("", 
                       values = c("1" = pal_m[1], "0" = pal_f[1]),
                       labels = c("Male", "Female")) +
@@ -156,7 +159,8 @@ for(i in estimates_years[, 3]){
     scale_y_continuous(limits = c(agegrp_sex_label_min_per, agegrp_sex_label_max_per),
                        breaks = seq(agegrp_sex_label_min_per, agegrp_sex_label_max_per, 0.5)) +
     theme_bw() +
-    theme(panel.border = element_rect(linewidth = 0.25),
+    theme(plot.title = element_text(size = 7, hjust = 0, vjust = -4, face = "bold", margin = margin(0, 0, 0, 0)),
+          panel.border = element_rect(linewidth = 0.25),
           panel.grid = element_blank(),
           panel.spacing = unit(0.25, "cm"),
           strip.background = element_blank(),
@@ -177,16 +181,14 @@ for(i in estimates_years[, 3]){
   
   plots <- cowplot::align_plots(delta_agegrp_sex_absolute, delta_agegrp_sex_percent, align = "v")
   
-  plot.1 <- cowplot::ggdraw(plots[[1]])
-  plot.2 <- cowplot::ggdraw(plots[[2]])
+  plot.1a <- cowplot::ggdraw(plots[[1]])
+  plot.1b <- cowplot::ggdraw(plots[[2]])
   
+  plot.1 <- gridExtra::grid.arrange(plot.1a, plot.1b, ncol = 1)
+
   ggsave(plot = plot.1,
-         filename = here::here("out", "journal-output", paste0("Figure-1-a-", i, ".pdf")), 
-         width = 180, height = 80, units = "mm", device = "pdf")
-  
-  ggsave(plot = plot.2,
-         filename = here::here("out", "journal-output", paste0("Figure-1-b-", i, ".pdf")), 
-         width = 180, height = 80, units = "mm", device = "pdf")
+         filename = here::here("out", "journal-output", paste0("Figure-1-", i, ".pdf")), 
+         width = 180, height = 160, units = "mm", device = "pdf")
   
 }
 
@@ -199,7 +201,7 @@ for(j in c("a", "b")){
   
   if (j=="a"){ ## panel a, absolute  
     
-    panel_a_wpp <-
+    a_panel_1_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 1], Scenario==4) %>% pull(Pop_diff_absolute_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 1], Scenario==4) %>% pull(Pop_diff_absolute_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 1], Scenario==4) %>% pull(Pop_diff_absolute_upper), 
@@ -209,9 +211,10 @@ for(j in c("a", "b")){
               limit.2 = 10, 
               percent = FALSE,
               show.x = FALSE,
-              show.y = TRUE)
+              show.y = TRUE,
+              PANEL = "Panel A")
 
-    panel_b_wpp <-
+    a_panel_2_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==4) %>% pull(Pop_diff_absolute_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==4) %>% pull(Pop_diff_absolute_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==4) %>% pull(Pop_diff_absolute_upper), 
@@ -221,9 +224,10 @@ for(j in c("a", "b")){
               limit.2 = 10, 
               percent = FALSE,
               show.x = TRUE,
-              show.y = FALSE)
+              show.y = FALSE,
+              PANEL = "")
 
-    panel_c_wpp <-
+    a_panel_3_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 3], Scenario==4) %>% pull(Pop_diff_absolute_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 3], Scenario==4) %>% pull(Pop_diff_absolute_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 3], Scenario==4) %>% pull(Pop_diff_absolute_upper), 
@@ -233,9 +237,10 @@ for(j in c("a", "b")){
               limit.2 = 10, 
               percent = FALSE,
               show.x = FALSE,
-              show.y = FALSE)
+              show.y = FALSE,
+              PANEL = "")
 
-    pyramid_MO.. <-
+    a_pyramid_MO.. <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==1) %>% pull(Pop_diff_absolute_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==1) %>% pull(Pop_diff_absolute_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==1) %>% pull(Pop_diff_absolute_upper), 
@@ -245,9 +250,10 @@ for(j in c("a", "b")){
               limit.2 = 10, 
               percent = FALSE,
               show.x = FALSE,
-              show.y = TRUE)
+              show.y = TRUE,
+              PANEL = "Panel A")
     
-    pyramid_.FE. <-
+    a_pyramid_.FE. <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==2) %>% pull(Pop_diff_absolute_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==2) %>% pull(Pop_diff_absolute_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==2) %>% pull(Pop_diff_absolute_upper), 
@@ -257,9 +263,10 @@ for(j in c("a", "b")){
               limit.2 = 10, 
               percent = FALSE,
               show.x = TRUE,
-              show.y = FALSE)
+              show.y = FALSE,
+              PANEL = "")
     
-    pyramid_..MI_wpp <-
+    a_pyramid_..MI_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==3) %>% pull(Pop_diff_absolute_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==3) %>% pull(Pop_diff_absolute_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==3) %>% pull(Pop_diff_absolute_upper), 
@@ -269,11 +276,12 @@ for(j in c("a", "b")){
               limit.2 = 10, 
               percent = FALSE,
               show.x = FALSE,
-              show.y = FALSE)
+              show.y = FALSE,
+              PANEL = "")
 
   }else{ ## panel b, relative
     
-    panel_a_wpp <-
+    b_panel_1_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 1], Scenario==4) %>% pull(Pop_diff_percent_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 1], Scenario==4) %>% pull(Pop_diff_percent_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 1], Scenario==4) %>% pull(Pop_diff_percent_upper), 
@@ -283,9 +291,10 @@ for(j in c("a", "b")){
               limit.2 = 2, 
               percent = TRUE,
               show.x = FALSE,
-              show.y = TRUE)
+              show.y = TRUE,
+              PANEL = "Panel B")
     
-    panel_b_wpp <-
+    b_panel_2_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==4) %>% pull(Pop_diff_percent_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==4) %>% pull(Pop_diff_percent_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==4) %>% pull(Pop_diff_percent_upper), 
@@ -295,9 +304,10 @@ for(j in c("a", "b")){
               limit.2 = 2, 
               percent = TRUE,
               show.x = TRUE,
-              show.y = FALSE)
+              show.y = FALSE,
+              PANEL = "")
     
-    panel_c_wpp <-
+    b_panel_3_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 3], Scenario==4) %>% pull(Pop_diff_percent_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 3], Scenario==4) %>% pull(Pop_diff_percent_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 3], Scenario==4) %>% pull(Pop_diff_percent_upper), 
@@ -307,9 +317,10 @@ for(j in c("a", "b")){
               limit.2 = 2, 
               percent = TRUE,
               show.x = FALSE,
-              show.y = FALSE)
+              show.y = FALSE,
+              PANEL = "")
     
-    pyramid_MO.. <-
+    b_pyramid_MO.. <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==1) %>% pull(Pop_diff_percent_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==1) %>% pull(Pop_diff_percent_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==1) %>% pull(Pop_diff_percent_upper), 
@@ -319,9 +330,10 @@ for(j in c("a", "b")){
               limit.2 = 2, 
               percent = TRUE,
               show.x = FALSE,
-              show.y = TRUE)
+              show.y = TRUE,
+              PANEL = "Panel B")
     
-    pyramid_.FE. <-
+    b_pyramid_.FE. <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==2) %>% pull(Pop_diff_percent_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==2) %>% pull(Pop_diff_percent_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==2) %>% pull(Pop_diff_percent_upper), 
@@ -331,9 +343,10 @@ for(j in c("a", "b")){
               limit.2 = 2, 
               percent = TRUE,
               show.x = TRUE,
-              show.y = FALSE)
+              show.y = FALSE,
+              PANEL = "")
     
-    pyramid_..MI_wpp <-
+    b_pyramid_..MI_wpp <-
       pyramid(mid = df_age %>% filter(Year==estimates_years[i, 2], Scenario==3) %>% pull(Pop_diff_percent_mid), 
               lower = df_age %>% filter(Year==estimates_years[i, 2], Scenario==3) %>% pull(Pop_diff_percent_lower), 
               upper = df_age %>% filter(Year==estimates_years[i, 2], Scenario==3) %>% pull(Pop_diff_percent_upper), 
@@ -343,21 +356,39 @@ for(j in c("a", "b")){
               limit.2 = 2, 
               percent = TRUE,
               show.x = FALSE,
-              show.y = FALSE)
-  
+              show.y = FALSE,
+              PANEL = "")
+    
+    }
   }
   
-  ggpubr::ggarrange(panel_a_wpp, panel_b_wpp, panel_c_wpp, ncol = 3)
+  plot.2a <- ggpubr::ggarrange(a_panel_1_wpp, a_panel_2_wpp, a_panel_3_wpp, ncol = 3)
+  plot.2b <- ggpubr::ggarrange(b_panel_1_wpp, b_panel_2_wpp, b_panel_3_wpp, ncol = 3)
   
-  ggsave(filename = here::here("out", "journal-output", paste0("Figure-2-", j, "-", estimates_years[i, 3], ".pdf")), 
-         width = 180, height = 80, units = "mm", device = "pdf")
-
-  ggpubr::ggarrange(pyramid_MO.., pyramid_.FE., pyramid_..MI_wpp, ncol = 3)
-
-  ggsave(filename = here::here("out", "journal-output", paste0("Figure-3-", j, "-", estimates_years[i, 2], ".pdf")), 
-         width = 180, height = 80, units = "mm", device = "pdf")
+  plot.3a <- ggpubr::ggarrange(a_pyramid_MO.., a_pyramid_.FE., a_pyramid_..MI_wpp, ncol = 3)
+  plot.3b <- ggpubr::ggarrange(b_pyramid_MO.., b_pyramid_.FE., b_pyramid_..MI_wpp, ncol = 3)
   
-  }
+  plot.2 <- cowplot::align_plots(plot.2a, plot.2b, align = "v")
+  plot.3 <- cowplot::align_plots(plot.3a, plot.3b, align = "v")
+  
+  plot.2a <- cowplot::ggdraw(plot.2[[1]])
+  plot.2b <- cowplot::ggdraw(plot.2[[2]])
+  
+  plot.3a <- cowplot::ggdraw(plot.3[[1]])
+  plot.3b <- cowplot::ggdraw(plot.3[[2]])
+  
+  plot.2 <- gridExtra::grid.arrange(plot.2a, plot.2b, ncol = 1) 
+    
+  plot.3 <- gridExtra::grid.arrange(plot.3a, plot.3b, ncol = 1) 
+  
+  ggsave(plot = plot.2,
+         filename = here::here("out", "journal-output", paste0("Figure-2-", estimates_years[i, 3], ".pdf")), 
+         width = 180, height = 160, units = "mm", device = "pdf")
+  
+  ggsave(plot = plot.3,
+         filename = here::here("out", "journal-output", paste0("Figure-3-", estimates_years[i, 2], ".pdf")), 
+         width = 180, height = 160, units = "mm", device = "pdf")
+  
 }
 
 ############################################
