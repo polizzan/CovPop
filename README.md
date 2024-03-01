@@ -21,7 +21,7 @@ For our main analysis, we use data from the [United Nations World Population Pro
 
 For our supplementary analysis, we also use data from the [Human Mortality Database](https://mortality.org), version 03 April 2023 (Ref. 2), and the [Human Fertility Database](https://humanfertility.org), deposited on 28 March 2023 (Ref. 3), as well as data published in three National Vital Statistics Reports (Ref. 4&ndash;6).
 
-The UNWPP data used for our analysis are distributed under a [Creative Commons license CC BY 3.0 IGO](https://creativecommons.org/licenses/by/3.0/igo/). The HMD and HFD data used for our analysis are distrubuted under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Please note the version or deposited dates of the data used for our analysis, as indicated above.
+The UNWPP data used for our analysis are distributed under a [Creative Commons license CC BY 3.0 IGO](https://creativecommons.org/licenses/by/3.0/igo/). The HMD and HFD data used for our analysis are distributed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Please note the version or deposited dates of the data used for our analysis, as indicated above.
 
 #### a. *data*
 Data taken from UNWPP, HMD, and HFD are stored as .zip files in the sub-folder **data**. These .zip files  do **not** need to be unzipped before running our analysis files, as the code unzips these files automatically. Data from the three National Vital Statistics Reports are hard coded in our analysis files. The sub-folder **data** also stores data files created during  analysis.
