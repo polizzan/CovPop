@@ -7,7 +7,7 @@
 ## Purpose of this Repository
 The repository **CovPop** was created to enable readers to replicate the findings reported in:
 
-*Projecting the Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure*,
+A.M. Tilstra, A. Polizzi, S. Wagner, E.T. Akimova. Projecting the long-term effects of the COVID-19 pandemic on U.S. population structure. *Nature Communications* 15, 2409 (2024). https://doi.org/10.1038/s41467-024-46582-4,
 
 hereafter, *our manuscript*.
 
@@ -74,4 +74,4 @@ This work is licensed under a
 4. M.J.K. Osterman, B.E. Hamilton, J.A. Martin, A.K. Driscoll, C.P. Valenzuela, Births: Final Data for 2021. *National Vital Statistics Reports* **72**(1) (2023). 
 5. E. Arias, J. Xu, United States Life Tables, 2019. *National Vital Statistics Reports* **70**(19) (2022).
 6. E. Arias, J. Xu, United States Life Tables, 2020. *National Vital Statistics Reports* **71**(1) (2022).
-7. A.M. Tilstra, A. Polizzi, S. Wagner, E.T. Akimova, The Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure. *SocArXiv*. https://doi.org/10.31235/osf.io/rqn9j. Version 1. Submitted 28 March 2023.
+7. A.M. Tilstra, A. Polizzi, S. Wagner, E.T. Akimova. The Long-term Effects of the COVID-19 Pandemic on U.S. Population Structure. *SocArXiv*. https://doi.org/10.31235/osf.io/rqn9j. Version 1. Submitted 28 March 2023.
